@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Surface tiers (dark, OLED-leaning) -->
+    <color name="surface">#0F1419</color>
+    <color name="surface_container_lowest">#0A0F14</color>
+    <color name="surface_container_low">#171C21</color>
+    <color name="surface_container">#1B2025</color>
+    <color name="surface_container_high">#252A30</color>
+    <color name="surface_container_highest">#30353B</color>
+    <color name="surface_bright">#353A3F</color>
+
+    <!-- Foreground / text -->
+    <color name="on_surface">#DEE3EA</color>
+    <color name="on_surface_variant">#C4C9AC</color>
+    <color name="outline">#8E9379</color>
+    <color name="outline_variant">#444933</color>
+
+    <!-- Brand primary: Kinetic Volt (lime) -->
+    <color name="primary_container">#C3F400</color>
+    <color name="primary_fixed_dim">#ABD600</color>
+    <color name="on_primary_container">#0A0F14</color>
+
+    <!-- Secondary: Cyan Velocity -->
+    <color name="secondary">#BDF4FF</color>
+    <color name="secondary_container">#00E3FD</color>
+    <color name="secondary_fixed_dim">#00DAF3</color>
+    <color name="on_secondary_container">#00616D</color>
+
+    <!-- Status -->
+    <color name="error">#FFB4AB</color>
+    <color name="error_container">#93000A</color>
+    <color name="success">#8BE28B</color>
+
+    <!-- Hairline strokes (translucent white over dark surfaces) -->
+    <color name="stroke_subtle">#14FFFFFF</color>
+    <color name="stroke_medium">#1FFFFFFF</color>
+    <color name="scrim">#B3080B0E</color>
+
+    <!-- Brand mark -->
+    <color name="logo_bg">#0E1318</color>
+    <color name="logo_mark">#CCFF00</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+</resources>

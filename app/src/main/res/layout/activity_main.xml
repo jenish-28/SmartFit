@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/surface">
+
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/layout_top_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/bottom_nav_height"
+        android:background="@color/surface_container_lowest"
+        app:itemIconTint="@color/nav_item_selector"
+        app:itemTextColor="@color/nav_item_selector"
+        app:itemRippleColor="@color/stroke_medium"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_md">
+
+            <!-- Live status line -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="@drawable/shape_dot"
+                    android:backgroundTint="@color/primary_container"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_xs"
+                    android:text="@string/status_telemetry_live"
+                    style="@style/Text.LabelTelemetry" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/dashboard_headline"
+                style="@style/Text.HeadlineMd" />
+
+            <TextView
+                android:id="@+id/text_dashboard_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                style="@style/Text.BodyMd"
+                android:textColor="@color/on_surface_variant"
+                tools:text="You're on a 4-day streak. Keep the momentum." />
+
+            <!-- Weekly Goal Hero Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_lg"
+                android:orientation="vertical"
+                style="@style/Card.ContainerLow">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/label_weekly_kinetic_target"
+                        android:textColor="@color/primary_container"
+                        style="@style/Text.LabelTelemetry" />
+
+                    <TextView
+                        android:id="@+id/text_days_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_badge"
+                        android:paddingHorizontal="@dimen/space_xs"
+                        android:paddingVertical="3dp"
+                        style="@style/Text.LabelBadge"
+                        tools:text="3 DAYS LEFT" />
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginTop="@dimen/space_xs">
+
+                    <com.example.smartfit.view.GaugeArcView
+                        android:id="@+id/gauge_weekly"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:layout_marginBottom="@dimen/space_lg"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/text_goal_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/primary_container"
+                                style="@style/Text.MetricHuge"
+                                tools:text="115" />
+
+                            <TextView
+                                android:id="@+id/text_goal_target"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginBottom="4dp"
+                                style="@style/Text.BodyMd"
+                                android:textColor="@color/on_surface_variant"
+                                tools:text="/ 150m" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/text_goal_percent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/primary_container"
+                            style="@style/Text.LabelTelemetry"
+                            tools:text="77% COMPLETED" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/text_mins_remaining"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:background="@drawable/bg_badge_primary"
+                    android:paddingHorizontal="@dimen/space_md"
+                    android:paddingVertical="@dimen/space_2xs"
+                    android:textColor="@color/primary_container"
+                    style="@style/Text.LabelBadge"
+                    tools:text="35 MINS REMAINING TO CRUSH GOAL" />
+
+                <!-- Streak strip -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_md"
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_sm"
+                    android:background="@drawable/bg_card_container">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/text_streak_label"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            style="@style/Text.LabelTelemetry"
+                            tools:text="CURRENT STREAK: 4 DAYS ACTIVE" />
+
+                        <TextView
+                            android:id="@+id/text_streak_badge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/primary_container"
+                            style="@style/Text.LabelBadge"
+                            tools:text="ON FIRE" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/streak_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_xs"
+                        android:orientation="horizontal"
+                        android:weightSum="7" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_start_workout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/cta_height"
+                android:layout_marginTop="@dimen/space_xl"
+                android:text="@string/btn_start_workout"
+                app:icon="@drawable/ic_bolt"
+                app:iconGravity="textStart"
+                app:iconTint="@color/on_primary_container"
+                style="@style/Button.Cta" />
+
+            <!-- Weekly Performance -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xl"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_weekly_performance"
+                    style="@style/Text.LabelTelemetry" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_summary"
+                    android:textColor="@color/primary_container"
+                    style="@style/Text.LabelBadge" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/space_2xs"
+                    android:orientation="vertical"
+                    style="@style/Card.ContainerLow">
+
+                    <TextView
+                        android:id="@+id/text_sessions_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Text.MetricCard"
+                        tools:text="5" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/label_sessions"
+                        style="@style/Text.Caption" />
+
+                    <TextView
+                        android:id="@+id/text_sessions_delta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_xs"
+                        android:textColor="@color/primary_container"
+                        style="@style/Text.LabelBadge"
+                        tools:text="+2 vs lw" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="@dimen/space_2xs"
+                    android:orientation="vertical"
+                    style="@style/Card.ContainerLow">
+
+                    <TextView
+                        android:id="@+id/text_total_mins_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Text.MetricCard"
+                        tools:text="115" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/label_total_mins"
+                        style="@style/Text.Caption" />
+
+                    <TextView
+                        android:id="@+id/text_total_mins_delta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_xs"
+                        android:textColor="@color/primary_container"
+                        style="@style/Text.LabelBadge"
+                        tools:text="+18m vs lw" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/space_2xs"
+                    android:orientation="vertical"
+                    style="@style/Card.ContainerLow">
+
+                    <TextView
+                        android:id="@+id/text_avg_mins_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Text.MetricCard"
+                        tools:text="23" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/label_avg_mins"
+                        style="@style/Text.Caption" />
+
+                    <TextView
+                        android:id="@+id/text_avg_mins_delta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_xs"
+                        android:textColor="@color/on_surface_variant"
+                        style="@style/Text.LabelBadge"
+                        tools:text="Steady" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Quick Access Modules -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xl"
+                android:text="@string/label_quick_access"
+                style="@style/Text.LabelTelemetry" />
+
+            <LinearLayout
+                android:id="@+id/card_recent_workout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                style="@style/Card.ContainerLow">
+
+                <ImageView
+                    android:id="@+id/icon_recent_type"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/bg_icon_chip_primary"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_directions_run"
+                    android:contentDescription="@null"
+                    app:tint="@color/on_primary_container" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/space_sm"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_recent_eyebrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_recent_workout"
+                        android:textColor="@color/secondary"
+                        style="@style/Text.LabelBadge" />
+
+                    <TextView
+                        android:id="@+id/text_recent_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        style="@style/Text.HeadlineSm"
+                        tools:text="Tempo Threshold Run" />
+
+                    <TextView
+                        android:id="@+id/text_recent_meta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        style="@style/Text.Caption"
+                        tools:text="Yesterday · 32 min · 4.0 / 5" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/bg_card_container_high"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="@color/on_surface_variant"
+                    android:contentDescription="@null" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/card_motion_sensors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_sm"
+                android:layout_marginBottom="@dimen/space_md"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                style="@style/Card.ContainerLow">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_icon_chip"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_sensors"
+                    app:tint="@color/secondary"
+                    android:contentDescription="@null" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/space_sm"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_motion_sensors"
+                        style="@style/Text.HeadlineSm" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_sensors_desc"
+                        style="@style/Text.Caption" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_sensors_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_badge"
+                    android:paddingHorizontal="@dimen/space_xs"
+                    android:paddingVertical="3dp"
+                    android:textColor="@color/primary_container"
+                    style="@style/Text.LabelBadge"
+                    tools:text="2/2 READY" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/top_bar_height"
+    android:background="@color/surface_container_lowest"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/space_md">
+
+    <ImageView
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:background="@drawable/bg_logo_chip"
+        android:contentDescription="@string/app_name"
+        android:padding="3dp"
+        android:src="@drawable/ic_logo_mark" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_xs"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textAllCaps="true"
+            style="@style/Text.HeadlineSm" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="@string/brand_tagline"
+            android:textColor="@color/primary_container"
+            style="@style/Text.LabelBadge" />
+
+    </LinearLayout>
+
+</LinearLayout>

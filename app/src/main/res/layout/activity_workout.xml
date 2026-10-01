@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/surface">
+
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/layout_top_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/bottom_nav_height"
+        android:background="@color/surface_container_lowest"
+        app:itemIconTint="@color/nav_item_selector"
+        app:itemTextColor="@color/nav_item_selector"
+        app:itemRippleColor="@color/stroke_medium"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_md">
+
+            <!-- Header -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_telemetry_log"
+                    android:textColor="@color/primary_container"
+                    style="@style/Text.LabelBadge" />
+
+                <ImageView
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_marginHorizontal="@dimen/space_xs"
+                    android:background="@drawable/shape_dot"
+                    android:backgroundTint="@color/primary_container"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_local_only"
+                    style="@style/Text.LabelBadge" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/workout_headline"
+                style="@style/Text.HeadlineLg" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/workout_subtitle"
+                style="@style/Text.BodyMd"
+                android:textColor="@color/on_surface_variant" />
+
+            <!-- Activity Type -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_lg"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_activity_type"
+                    style="@style/Text.LabelTelemetry" />
+
+                <TextView
+                    android:id="@+id/text_selected_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/primary_container"
+                    style="@style/Text.LabelBadge"
+                    tools:text="SELECTED: RUNNING" />
+
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:scrollbars="none">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleLine="true"
+                    app:singleSelection="true"
+                    app:selectionRequired="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_running"
+                        style="@style/Chip.Pill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Running"
+                        app:chipIcon="@drawable/ic_directions_run" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_walking"
+                        style="@style/Chip.Pill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Walking"
+                        app:chipIcon="@drawable/ic_directions_walk" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_cycling"
+                        style="@style/Chip.Pill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cycling"
+                        app:chipIcon="@drawable/ic_directions_bike" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_strength"
+                        style="@style/Chip.Pill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Strength Training"
+                        app:chipIcon="@drawable/ic_fitness_center" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_yoga"
+                        style="@style/Chip.Pill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Yoga"
+                        app:chipIcon="@drawable/ic_self_improvement" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_other"
+                        style="@style/Chip.Pill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Other"
+                        app:chipIcon="@drawable/ic_more_horiz" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </HorizontalScrollView>
+
+            <!-- Duration -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_md"
+                android:orientation="vertical"
+                style="@style/Card.Container">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_timer"
+                        app:tint="@color/primary_container"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_xs"
+                        android:text="@string/label_active_duration"
+                        style="@style/Text.LabelTelemetry" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_sm"
+                    android:background="@drawable/bg_card_container_lowest"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/space_sm"
+                    android:paddingVertical="@dimen/space_xs">
+
+                    <ImageView
+                        android:id="@+id/btn_dec"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_circle_surface_high"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_remove"
+                        app:tint="@color/on_surface"
+                        android:contentDescription="@string/duration_unit" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/text_duration_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/primary_container"
+                            style="@style/Text.MetricHuge"
+                            tools:text="45 MIN" />
+
+                        <TextView
+                            android:id="@+id/text_duration_target"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Text.Caption"
+                            tools:text="Target: 45m" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/btn_inc"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_circle_surface_high"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_add"
+                        app:tint="@color/primary_container"
+                        android:contentDescription="@string/duration_unit" />
+
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progress_duration"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_marginTop="@dimen/space_sm"
+                    android:max="240"
+                    android:progressDrawable="@drawable/progress_duration"
+                    tools:progress="45" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="0m"
+                        style="@style/Text.LabelBadge" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="240m"
+                        style="@style/Text.LabelBadge" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/preset_15"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="2dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        app:cornerRadius="12dp"
+                        android:textAllCaps="false"
+                        android:text="15m" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/preset_30"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="2dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        app:cornerRadius="12dp"
+                        android:textAllCaps="false"
+                        android:text="30m" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/preset_45"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="2dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        app:cornerRadius="12dp"
+                        android:textAllCaps="false"
+                        android:text="45m" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/preset_60"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="2dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        app:cornerRadius="12dp"
+                        android:textAllCaps="false"
+                        android:text="60m" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/preset_90"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="2dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        app:cornerRadius="12dp"
+                        android:textAllCaps="false"
+                        android:text="90m" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Intensity -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_sm"
+                android:orientation="vertical"
+                style="@style/Card.Container">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_equalizer"
+                        app:tint="@color/primary_container"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/space_xs"
+                        android:text="@string/label_rpe_intensity"
+                        style="@style/Text.LabelTelemetry" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_intensity_level"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xs"
+                    style="@style/Text.HeadlineSm"
+                    tools:text="Level 4: High Intensity" />
+
+                <LinearLayout
+                    android:id="@+id/segment_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_sm"
+                    android:orientation="horizontal"
+                    android:weightSum="5" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_sm"
+                    android:background="@drawable/bg_card_container_low"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/space_sm">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginTop="1dp"
+                        android:src="@drawable/ic_check_circle"
+                        app:tint="@color/secondary"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:id="@+id/text_intensity_desc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/space_xs"
+                        style="@style/Text.Caption"
+                        tools:text="Anaerobic development with lactic clearing intervals." />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Completed switch -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_sm"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                style="@style/Card.Container">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_check_circle"
+                    app:tint="@color/primary_container"
+                    android:contentDescription="@null" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/space_sm"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_mark_completed"
+                        style="@style/Text.BodyMd" />
+
+                    <TextView
+                        android:id="@+id/text_completed_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        style="@style/Text.Caption"
+                        tools:text="Instantly counts toward your 150m weekly aerobic goal." />
+
+                </LinearLayout>
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switch_completed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    app:thumbTint="@color/switch_thumb_selector"
+                    app:trackTint="@color/switch_track_selector" />
+
+            </LinearLayout>
+
+            <!-- Notes -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_sm"
+                android:orientation="vertical"
+                style="@style/Card.Container">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_notes"
+                        app:tint="@color/on_surface_variant"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/space_xs"
+                        android:text="@string/label_reflection"
+                        style="@style/Text.LabelTelemetry" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_optional"
+                        style="@style/Text.LabelBadge" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/edit_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="96dp"
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:background="@drawable/bg_card_container_lowest"
+                    android:gravity="top|start"
+                    android:hint="@string/hint_notes"
+                    android:textColorHint="@color/on_surface_variant"
+                    android:inputType="textMultiLine"
+                    android:maxLength="300"
+                    android:padding="@dimen/space_sm"
+                    style="@style/Text.BodyMd" />
+
+                <TextView
+                    android:id="@+id/text_char_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:gravity="end"
+                    style="@style/Text.LabelBadge"
+                    tools:text="0/300 CHARS" />
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_save_workout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/cta_height"
+                android:layout_marginTop="@dimen/space_lg"
+                android:text="@string/btn_save_workout"
+                app:icon="@drawable/ic_check"
+                app:iconGravity="textStart"
+                app:iconTint="@color/on_primary_container"
+                style="@style/Button.Cta" />
+
+            <TextView
+                android:id="@+id/btn_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:layout_marginBottom="@dimen/space_md"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="@dimen/space_sm"
+                android:text="@string/btn_cancel_discard"
+                style="@style/Text.BodyMd" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

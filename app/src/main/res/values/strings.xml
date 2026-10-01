@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SmartFit</string>
+    <string name="brand_tagline">VOLT</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_workout">Workout</string>
+    <string name="nav_history">History</string>
+    <string name="nav_sensors">Sensors</string>
+
+    <!-- Dashboard -->
+    <string name="status_telemetry_live">Telemetry Engine Live</string>
+    <string name="dashboard_headline">Ready for your next workout?</string>
+    <string name="dashboard_subtitle_empty">Log your first session to get started.</string>
+    <string name="dashboard_subtitle_streak_format">You\'re on a %1$d-day streak. Keep the momentum.</string>
+    <string name="label_weekly_kinetic_target">Weekly Kinetic Target</string>
+    <string name="days_left_format">%1$d DAYS LEFT</string>
+    <string name="day_left_one">1 DAY LEFT</string>
+    <string name="goal_progress_value_format">%1$d</string>
+    <string name="goal_progress_target_format">/ %1$dm</string>
+    <string name="goal_progress_percent_format">%1$d%% COMPLETED</string>
+    <string name="mins_remaining_format">%1$d MINS REMAINING TO CRUSH GOAL</string>
+    <string name="goal_reached">WEEKLY GOAL CRUSHED — NICE WORK</string>
+    <string name="label_current_streak_format">CURRENT STREAK: %1$d DAYS ACTIVE</string>
+    <string name="label_no_streak">NO ACTIVE STREAK</string>
+    <string name="label_on_fire">ON FIRE</string>
+    <string name="btn_start_workout">Start Workout</string>
+    <string name="label_weekly_performance">Weekly Performance</string>
+    <string name="label_summary">Summary</string>
+    <string name="label_sessions">Sessions</string>
+    <string name="label_total_mins">Total Mins</string>
+    <string name="label_avg_mins">Avg Mins</string>
+    <string name="delta_vs_last_week_format">%1$s vs lw</string>
+    <string name="label_steady">Steady</string>
+    <string name="label_quick_access">Quick Access Modules</string>
+    <string name="label_recent_workout">Workout History</string>
+    <string name="label_no_workouts_yet">No workouts logged yet</string>
+    <string name="label_no_workouts_yet_desc">Start your first workout to see it here</string>
+    <string name="label_motion_sensors">Motion Sensors</string>
+    <string name="label_sensors_desc">Accelerometer + Gyroscope</string>
+    <string name="sensors_ready_format">%1$d/%2$d READY</string>
+
+    <!-- Add Workout -->
+    <string name="label_telemetry_log">Telemetry Log</string>
+    <string name="label_local_only">Local Only</string>
+    <string name="workout_headline">Log New Session</string>
+    <string name="workout_subtitle">Record your workout type, duration, and effort.</string>
+    <string name="label_activity_type">Activity Type</string>
+    <string name="selected_format">Selected: %1$s</string>
+    <string name="label_active_duration">Active Duration</string>
+    <string name="duration_unit">MIN</string>
+    <string name="value_minutes_compact">%1$d MIN</string>
+    <string name="duration_target_format">Target: %1$dm</string>
+    <string name="label_rpe_intensity">RPE Intensity Scale</string>
+    <string name="level_format">Level %1$d</string>
+    <string name="intensity_1">Low Effort</string>
+    <string name="intensity_2">Moderate Effort</string>
+    <string name="intensity_3">Vigorous Effort</string>
+    <string name="intensity_4">High Intensity</string>
+    <string name="intensity_5">Maximum Effort</string>
+    <string name="intensity_desc_1">Easy pace, comfortable breathing throughout.</string>
+    <string name="intensity_desc_2">Steady effort, conversation still comfortable.</string>
+    <string name="intensity_desc_3">Breathing hard, conversation is difficult.</string>
+    <string name="intensity_desc_4">Anaerobic development with lactic clearing intervals.</string>
+    <string name="intensity_desc_5">All-out effort, unsustainable for long.</string>
+    <string name="label_mark_completed">Mark Workout as Completed</string>
+    <string name="label_mark_completed_desc_format">Instantly counts toward your %1$dm weekly aerobic goal.</string>
+    <string name="label_reflection">Reflection &amp; Observations</string>
+    <string name="label_optional">Optional</string>
+    <string name="hint_notes">Add notes, sets, reps, or how you felt today…</string>
+    <string name="chars_count_format">%1$d/%2$d chars</string>
+    <string name="btn_save_workout">Save Workout</string>
+    <string name="btn_cancel_discard">Cancel / Discard</string>
+
+    <string name="error_duration_required">Please enter a duration</string>
+    <string name="error_duration_invalid">Duration must be a valid number</string>
+    <string name="error_duration_positive">Duration must be greater than zero</string>
+    <string name="toast_workout_saved">Workout saved</string>
+
+    <string-array name="workout_types">
+        <item>Running</item>
+        <item>Walking</item>
+        <item>Cycling</item>
+        <item>Strength Training</item>
+        <item>Yoga</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- History -->
+    <string name="label_telemetry_ledger">Telemetry Ledger</string>
+    <string name="label_local_log">Local Log</string>
+    <string name="label_logged_this_month">Logged This Month</string>
+    <string name="label_completed_caps">Completed</string>
+    <string name="label_sessions_unit">Sessions</string>
+    <string name="month_goal_format">Goal: %1$dh / month</string>
+    <string name="pacing_format">%1$d%% PACING</string>
+    <string name="filter_all_format">All (%1$d)</string>
+    <string name="hours_minutes_format">%1$dh %2$dm</string>
+    <string name="item_duration_format">%1$d min</string>
+    <string name="item_rating_format">%1$.1f / 5</string>
+    <string name="status_completed">Completed</string>
+    <string name="status_incomplete">Incomplete</string>
+    <string name="mins_active_format">%1$d mins active</string>
+
+    <string name="title_history">Workout History</string>
+    <string name="empty_history_title">No workouts yet</string>
+    <string name="empty_history_subtitle">Your saved workouts will appear here once you complete one</string>
+
+    <!-- Sensors -->
+    <string name="title_sensors">Motion Sensors</string>
+    <string name="label_sensor_manager_active">SensorManager: Active</string>
+    <string name="label_sensor_manager_unavailable">SensorManager: Unavailable</string>
+    <string name="label_hz_live_format">%1$d Hz Live Telemetry</string>
+    <string name="label_vector_magnitude">Vector Magnitude</string>
+    <string name="label_rms_vector">RMS Vector</string>
+    <string name="unit_g">g</string>
+    <string name="label_live_magnitude">Live Magnitude</string>
+    <string name="over_idle_format">+%1$.2fg over idle</string>
+    <string name="label_base_idle">Base Idle</string>
+    <string name="label_peak_spike">Peak Spike</string>
+    <string name="status_idle">Idle / Stationary</string>
+    <string name="status_light_motion">Light Motion Detected</string>
+    <string name="status_vigorous_motion">Vigorous Motion Detected</string>
+    <string name="label_movement_graph_view">MovementGraphView</string>
+    <string name="label_live_buffer">Live Buffer</string>
+    <string name="label_auto_ranging">Auto-ranging: Active</string>
+    <string name="label_window_ms_format">Window: %1$d ms</string>
+    <string name="label_accelerometer_3axis">Accelerometer (3-Axis)</string>
+    <string name="unit_m_s2">m/s²</string>
+    <string name="axis_x_lateral">Axis X · Lateral</string>
+    <string name="axis_y_vertical">Axis Y · Vertical</string>
+    <string name="axis_z_anterior">Axis Z · Anterior</string>
+    <string name="label_gyroscope_rot">Gyroscope (Rotational)</string>
+    <string name="unit_rad_s">rad/s</string>
+    <string name="label_roll_x">Roll (X)</string>
+    <string name="label_pitch_y">Pitch (Y)</string>
+    <string name="label_yaw_z">Yaw (Z)</string>
+    <string name="btn_pause_stream">Pause</string>
+    <string name="btn_resume_stream">Resume</string>
+    <string name="btn_recalibrate">Recalibrate</string>
+    <string name="sensor_unavailable">This sensor is not available on this device</string>
+    <string name="axis_value_format">%1$+.2f</string>
+    <string name="label_live">LIVE</string>
+    <string name="label_paused">PAUSED</string>
+
+    <!-- Generic -->
+    <string name="content_desc_back">Navigate back</string>
+</resources>

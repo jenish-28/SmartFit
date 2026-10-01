@@ -1,0 +1,861 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/surface">
+
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/layout_top_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/bottom_nav_height"
+        android:background="@color/surface_container_lowest"
+        app:itemIconTint="@color/nav_item_selector"
+        app:itemTextColor="@color/nav_item_selector"
+        app:itemRippleColor="@color/stroke_medium"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_md">
+
+            <!-- Status bar -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                style="@style/Card.ContainerLow">
+
+                <ImageView
+                    android:id="@+id/dot_sensor_status"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/shape_dot"
+                    android:backgroundTint="@color/primary_container"
+                    android:contentDescription="@null" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/space_xs"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_sensor_manager_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_container"
+                        style="@style/Text.LabelBadge"
+                        tools:text="SENSORMANAGER: ACTIVE" />
+
+                    <TextView
+                        android:id="@+id/text_sensor_precision"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Text.Caption"
+                        tools:text="Accelerometer + Gyroscope" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_stream_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_badge"
+                    android:paddingHorizontal="@dimen/space_xs"
+                    android:paddingVertical="3dp"
+                    android:textColor="@color/secondary"
+                    style="@style/Text.LabelBadge"
+                    tools:text="LIVE" />
+
+            </LinearLayout>
+
+            <!-- Vector magnitude hero -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_sm"
+                android:orientation="vertical"
+                style="@style/Card.Container">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_speed"
+                        app:tint="@color/primary_container"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/space_xs"
+                        android:text="@string/label_vector_magnitude"
+                        style="@style/Text.LabelTelemetry" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_badge"
+                        android:paddingHorizontal="@dimen/space_xs"
+                        android:paddingVertical="3dp"
+                        android:text="@string/label_rms_vector"
+                        style="@style/Text.LabelBadge" />
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="@dimen/space_xs">
+
+                    <com.example.smartfit.view.GaugeArcView
+                        android:id="@+id/gauge_magnitude"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/text_magnitude_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Text.MetricHuge"
+                                tools:text="2.84" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginBottom="4dp"
+                                android:text="@string/unit_g"
+                                android:textColor="@color/primary_container"
+                                style="@style/Text.HeadlineSm" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/label_live_magnitude"
+                            style="@style/Text.LabelTelemetry" />
+
+                        <TextView
+                            android:id="@+id/text_over_idle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_xs"
+                            android:background="@drawable/bg_card_container_lowest"
+                            android:paddingHorizontal="@dimen/space_xs"
+                            android:paddingVertical="3dp"
+                            android:textColor="@color/secondary"
+                            style="@style/Text.Caption"
+                            tools:text="+1.86g over idle" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/bg_card_container_lowest"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/space_md"
+                    android:paddingVertical="@dimen/space_xs">
+
+                    <ImageView
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:background="@drawable/shape_dot"
+                        android:backgroundTint="@color/primary_container"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:id="@+id/text_motion_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_xs"
+                        style="@style/Text.LabelTelemetry"
+                        tools:text="VIGOROUS MOTION DETECTED" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_md"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="@dimen/space_2xs"
+                        android:background="@drawable/bg_card_container_lowest"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="@dimen/space_sm"
+                        android:paddingVertical="@dimen/space_xs">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_base_idle"
+                            style="@style/Text.Caption" />
+
+                        <TextView
+                            android:id="@+id/text_base_idle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Text.LabelTelemetry"
+                            android:textColor="@color/on_surface"
+                            tools:text="0.98 g" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/space_2xs"
+                        android:background="@drawable/bg_card_container_lowest"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="@dimen/space_sm"
+                        android:paddingVertical="@dimen/space_xs">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/label_peak_spike"
+                            style="@style/Text.Caption" />
+
+                        <TextView
+                            android:id="@+id/text_peak_spike"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/primary_container"
+                            style="@style/Text.LabelTelemetry"
+                            tools:text="4.12 g" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Movement graph -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_sm"
+                android:orientation="vertical"
+                style="@style/Card.Container">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_show_chart"
+                        app:tint="@color/secondary"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/space_xs"
+                        android:text="@string/label_movement_graph_view"
+                        style="@style/Text.LabelTelemetry" />
+
+                    <ImageView
+                        android:layout_width="6dp"
+                        android:layout_height="6dp"
+                        android:background="@drawable/shape_dot"
+                        android:backgroundTint="@color/secondary"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="@string/label_live_buffer"
+                        android:textColor="@color/secondary"
+                        style="@style/Text.Caption" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:background="@drawable/bg_card_container_lowest"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/space_xs">
+
+                    <LinearLayout
+                        android:layout_width="28dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="5.0g"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="2.5g"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="bottom"
+                            android:text="0.0g"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="9sp" />
+
+                    </LinearLayout>
+
+                    <com.example.smartfit.view.MovementGraphView
+                        android:id="@+id/movement_graph_view"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="-15s"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="9sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="-10s"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="9sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="-5s"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="9sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="0s (NOW)"
+                        android:textColor="@color/primary_container"
+                        android:textSize="9sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_2xs"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/label_auto_ranging"
+                        style="@style/Text.Caption" />
+
+                    <TextView
+                        android:id="@+id/text_window_ms"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Text.Caption"
+                        tools:text="Window: 15000 ms" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Accelerometer -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_sm"
+                android:orientation="vertical"
+                style="@style/Card.Container">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_screen_rotation"
+                        app:tint="@color/primary_container"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/space_xs"
+                        android:text="@string/label_accelerometer_3axis"
+                        style="@style/Text.LabelTelemetry" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_badge"
+                        android:paddingHorizontal="@dimen/space_xs"
+                        android:paddingVertical="3dp"
+                        android:text="@string/unit_m_s2"
+                        style="@style/Text.LabelBadge" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_accel_unavailable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_sm"
+                    android:text="@string/sensor_unavailable"
+                    android:textColor="@color/error"
+                    android:visibility="gone"
+                    style="@style/Text.BodyMd" />
+
+                <LinearLayout
+                    android:id="@+id/group_accel_axes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_sm"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_card_container_lowest"
+                        android:orientation="vertical"
+                        android:padding="@dimen/space_sm">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/axis_x_lateral"
+                                android:textColor="@color/secondary"
+                                style="@style/Text.LabelTelemetry" />
+
+                            <TextView
+                                android:id="@+id/text_accel_x"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/space_grotesk_bold"
+                                android:textColor="@color/on_surface"
+                                android:textSize="12sp"
+                                tools:text="+0.42 m/s²" />
+
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:id="@+id/progress_accel_x"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="6dp"
+                            android:layout_marginTop="6dp"
+                            android:max="100"
+                            android:progressDrawable="@drawable/progress_rounded"
+                            android:progressTint="@color/secondary_container" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_xs"
+                        android:background="@drawable/bg_card_container_lowest"
+                        android:orientation="vertical"
+                        android:padding="@dimen/space_sm">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/axis_y_vertical"
+                                android:textColor="@color/primary_container"
+                                style="@style/Text.LabelTelemetry" />
+
+                            <TextView
+                                android:id="@+id/text_accel_y"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/space_grotesk_bold"
+                                android:textColor="@color/primary_container"
+                                android:textSize="12sp"
+                                tools:text="+9.78 m/s²" />
+
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:id="@+id/progress_accel_y"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="6dp"
+                            android:layout_marginTop="6dp"
+                            android:max="100"
+                            android:progressDrawable="@drawable/progress_rounded"
+                            android:progressTint="@color/primary_container" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_xs"
+                        android:background="@drawable/bg_card_container_lowest"
+                        android:orientation="vertical"
+                        android:padding="@dimen/space_sm">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/axis_z_anterior"
+                                style="@style/Text.LabelTelemetry" />
+
+                            <TextView
+                                android:id="@+id/text_accel_z"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/space_grotesk_bold"
+                                android:textColor="@color/on_surface"
+                                android:textSize="12sp"
+                                tools:text="+1.15 m/s²" />
+
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:id="@+id/progress_accel_z"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="6dp"
+                            android:layout_marginTop="6dp"
+                            android:max="100"
+                            android:progressDrawable="@drawable/progress_rounded"
+                            android:progressTint="@color/on_surface_variant" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Gyroscope -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_sm"
+                android:orientation="vertical"
+                style="@style/Card.Container">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_rotate_right"
+                        app:tint="@color/secondary"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/space_xs"
+                        android:text="@string/label_gyroscope_rot"
+                        style="@style/Text.LabelTelemetry" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_badge"
+                        android:paddingHorizontal="@dimen/space_xs"
+                        android:paddingVertical="3dp"
+                        android:text="@string/unit_rad_s"
+                        style="@style/Text.LabelBadge" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_gyro_unavailable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_sm"
+                    android:text="@string/sensor_unavailable"
+                    android:textColor="@color/error"
+                    android:visibility="gone"
+                    style="@style/Text.BodyMd" />
+
+                <LinearLayout
+                    android:id="@+id/group_gyro_axes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_sm"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="@dimen/space_2xs"
+                        android:background="@drawable/bg_card_container_lowest"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/space_sm">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/label_roll_x"
+                            style="@style/Text.Caption" />
+
+                        <TextView
+                            android:id="@+id/text_gyro_x"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="@font/space_grotesk_bold"
+                            android:textColor="@color/on_surface"
+                            android:textSize="16sp"
+                            tools:text="0.12" />
+
+                        <ProgressBar
+                            android:id="@+id/progress_gyro_x"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:layout_marginTop="4dp"
+                            android:max="100"
+                            android:progressDrawable="@drawable/progress_rounded"
+                            android:progressTint="@color/secondary_container" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="@dimen/space_2xs"
+                        android:background="@drawable/bg_card_container_lowest"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/space_sm">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/label_pitch_y"
+                            style="@style/Text.Caption" />
+
+                        <TextView
+                            android:id="@+id/text_gyro_y"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="@font/space_grotesk_bold"
+                            android:textColor="@color/secondary"
+                            android:textSize="16sp"
+                            tools:text="-0.38" />
+
+                        <ProgressBar
+                            android:id="@+id/progress_gyro_y"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:layout_marginTop="4dp"
+                            android:max="100"
+                            android:progressDrawable="@drawable/progress_rounded"
+                            android:progressTint="@color/secondary_container" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/space_2xs"
+                        android:background="@drawable/bg_card_container_lowest"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/space_sm">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/label_yaw_z"
+                            style="@style/Text.Caption" />
+
+                        <TextView
+                            android:id="@+id/text_gyro_z"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="@font/space_grotesk_bold"
+                            android:textColor="@color/primary_container"
+                            android:textSize="16sp"
+                            tools:text="1.04" />
+
+                        <ProgressBar
+                            android:id="@+id/progress_gyro_z"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:layout_marginTop="4dp"
+                            android:max="100"
+                            android:progressDrawable="@drawable/progress_rounded"
+                            android:progressTint="@color/primary_container" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Actions -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_md"
+                android:layout_marginBottom="@dimen/space_md"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_pause_stream"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/space_2xs"
+                    android:text="@string/btn_pause_stream"
+                    app:icon="@drawable/ic_pause_circle"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/on_surface"
+                    style="@style/Button.Ghost" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_recalibrate"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/space_2xs"
+                    android:text="@string/btn_recalibrate"
+                    android:textColor="@color/primary_container"
+                    app:icon="@drawable/ic_tune"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/primary_container"
+                    style="@style/Button.Ghost" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

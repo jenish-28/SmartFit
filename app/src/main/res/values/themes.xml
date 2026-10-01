@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Kinetic Obsidian is a single, deliberately dark brand theme (not day/night adaptive). -->
+    <style name="Theme.SmartFit" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/primary_container</item>
+        <item name="colorPrimaryDark">@color/surface_container_lowest</item>
+        <item name="colorAccent">@color/primary_container</item>
+        <item name="colorSecondary">@color/secondary_container</item>
+        <item name="colorSurface">@color/surface_container</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="colorError">@color/error</item>
+        <item name="android:windowBackground">@color/surface</item>
+        <item name="android:statusBarColor" tools:targetApi="21">@color/surface</item>
+        <item name="android:navigationBarColor" tools:targetApi="21">@color/surface_container_lowest</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+        <item name="android:fontFamily">@font/space_grotesk_regular</item>
+        <item name="fontFamily">@font/space_grotesk_regular</item>
+        <item name="android:textColor">@color/on_surface</item>
+    </style>
+
+    <!-- ===== Typography (Kinetic Obsidian type scale) ===== -->
+
+    <style name="Text.HeadlineLg" parent="">
+        <item name="android:fontFamily">@font/outfit_semibold</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+
+    <style name="Text.HeadlineMd" parent="">
+        <item name="android:fontFamily">@font/outfit_semibold</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:letterSpacing">-0.01</item>
+    </style>
+
+    <style name="Text.HeadlineSm" parent="">
+        <item name="android:fontFamily">@font/outfit_semibold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/on_surface</item>
+    </style>
+
+    <style name="Text.MetricHuge" parent="">
+        <item name="android:fontFamily">@font/outfit_bold</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+
+    <style name="Text.MetricCard" parent="">
+        <item name="android:fontFamily">@font/outfit_bold</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+
+    <style name="Text.BodyLg" parent="">
+        <item name="android:fontFamily">@font/space_grotesk_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/on_surface</item>
+    </style>
+
+    <style name="Text.BodyMd" parent="">
+        <item name="android:fontFamily">@font/space_grotesk_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/on_surface</item>
+    </style>
+
+    <style name="Text.LabelTelemetry" parent="">
+        <item name="android:fontFamily">@font/space_grotesk_semibold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="Text.LabelBadge" parent="">
+        <item name="android:fontFamily">@font/space_grotesk_bold</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="Text.Caption" parent="">
+        <item name="android:fontFamily">@font/space_grotesk_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <!-- ===== Components ===== -->
+
+    <style name="Card.Container" parent="">
+        <item name="android:background">@drawable/bg_card_container</item>
+        <item name="android:padding">@dimen/space_md</item>
+    </style>
+
+    <style name="Card.ContainerLow" parent="">
+        <item name="android:background">@drawable/bg_card_container_low</item>
+        <item name="android:padding">@dimen/space_md</item>
+    </style>
+
+    <style name="Button.Cta" parent="Widget.MaterialComponents.Button">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/outfit_semibold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/on_primary_container</item>
+        <item name="backgroundTint">@color/primary_container</item>
+        <item name="cornerRadius">999dp</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="rippleColor">@color/on_primary_container</item>
+    </style>
+
+    <style name="Chip.Pill" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_bg_selector</item>
+        <item name="android:textColor">@color/chip_text_selector</item>
+        <item name="chipIconTint">@color/chip_text_selector</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="chipCornerRadius">999dp</item>
+        <item name="chipMinHeight">40dp</item>
+        <item name="android:fontFamily">@font/space_grotesk_semibold</item>
+        <item name="android:textSize">13sp</item>
+        <item name="rippleColor">@color/on_primary_container</item>
+        <item name="checkedIconVisible">false</item>
+    </style>
+
+    <style name="Button.Ghost" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/outfit_semibold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="strokeColor">@color/stroke_medium</item>
+        <item name="backgroundTint">@color/surface_container_high</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="rippleColor">@color/primary_container</item>
+    </style>
+
+</resources>
