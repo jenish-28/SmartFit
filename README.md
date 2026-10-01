@@ -1,112 +1,292 @@
-# SmartFit
+# SmartFit — Android Fitness & Workout Tracker
 
-## Description
+<p align="center">
+  <strong>A native Android fitness tracker for logging workouts, monitoring progress, and visualizing real-time device motion.</strong>
+</p>
 
-SmartFit is a native Android personal workout tracker built for the Mobile Systems coursework project. Users can log workouts, review their workout history, and visualize live motion data captured from the device's accelerometer and gyroscope sensors. The app is written entirely in Kotlin using traditional Android Views/XML (no Jetpack Compose) and stores all data locally on the device — there is no backend, database server, or external authentication layer.
+<p align="center">
+  <a href="https://github.com/jenish-28/SmartFit">
+    <img src="https://img.shields.io/badge/Android-API%2026%2B-3DDC84?logo=android&logoColor=white" alt="Android API 26+">
+  </a>
+  <img src="https://img.shields.io/badge/Kotlin-2.0.21-7F52FF?logo=kotlin&logoColor=white" alt="Kotlin">
+  <img src="https://img.shields.io/badge/Views%20%2F%20XML-Native%20UI-4285F4" alt="Android Views XML">
+  <img src="https://img.shields.io/badge/Compile%20SDK-34-34A853" alt="Compile SDK 34">
+  <img src="https://img.shields.io/badge/Gradle-8.x-02303A?logo=gradle&logoColor=white" alt="Gradle">
+</p>
 
-The UI follows a modern dark theme (deep obsidian surfaces with a lime accent and clean typography), implemented natively with custom XML drawables, color state lists, and two custom `View` components — built entirely using AndroidX and Material Components.
+## Overview
+
+**SmartFit** is a native Android fitness and workout tracking application built with Kotlin and traditional Android Views/XML.
+
+The app provides a focused workout experience with local workout logging, progress summaries, workout history, and real-time motion monitoring using the device's **accelerometer and gyroscope**. Workout data is stored locally on the device, so the core application works without a backend or external authentication service.
+
+The interface uses a dark, modern fitness-oriented design with high-contrast lime accents, reusable XML components, custom views, and a persistent bottom navigation system.
+
 ## Features
 
-- Dashboard with a live-computed weekly goal gauge, workout streak tracker, and week-over-week performance deltas — all derived from real saved workout data, nothing hardcoded
-- Add a workout with a scrollable activity-type chip selector, a +/- duration stepper with quick presets, a 5-level RPE intensity scale, a completed toggle, and notes with a live character counter
-- redesigned workout card list" to "custom workout card list
-- Live accelerometer (X/Y/Z) and gyroscope (X/Y/Z) readings with per-axis intensity bars
-- A live-computed sensor sample rate (Hz), movement magnitude (in g), and idle/peak tracking, with pause/resume streaming and a recalibrate action
-- A custom-drawn, real-time movement graph rendered with Canvas/Paint/Path
-- A custom radial gauge view (`GaugeArcView`) used for both the weekly goal ring and the live sensor magnitude dial
-- A persistent bottom navigation bar shared across all four screens
-- Local persistence via SharedPreferences + JSON — workouts survive an app restart
+### 🏠 Dashboard
+- Weekly **150-minute activity goal** with a live progress gauge.
+- Current streak and Monday–Sunday activity overview.
+- Week-over-week performance statistics.
+- Recent workout preview.
+- Motion sensor availability status.
+- Quick navigation to workouts, history, and sensors.
 
-## Design
+### 🏋️ Workout Logging
+- Select activity types such as running, walking, cycling, and strength training.
+- Adjustable workout duration with `+` / `−` controls.
+- Quick duration presets.
+- 5-level RPE intensity scale.
+- Mark workouts as completed.
+- Add optional workout notes with a live character counter.
+- Workout data is returned to the dashboard using the Android Activity Result API.
 
-- **Palette & typography**: Dark surfaces (`colors.xml`) with high-contrast lime and cyan accents; typography using `Outfit` and `Space Grotesk` bundled under `res/font/`.
-- **Components**: Reusable card/pill/badge drawables (`res/drawable/bg_card_container*.xml`, `bg_pill_*`, `bg_badge*`), Material `Chip`s styled via `Chip.Pill`, and `ColorStateList`s in `res/color/` for chips, switches, inputs, and nav items.
-- **Custom Views**: `MovementGraphView` (live line/area chart) and `GaugeArcView` (a Canvas-drawn arc gauge with a gradient stroke and glowing indicator, used on the dashboard and sensor screen).
-- Custom vector launcher icon and brand mark (`ic_logo_mark.xml`, `ic_launcher_foreground/background.xml`).
-## Technologies
+### 📊 Workout History
+- RecyclerView-based workout history.
+- Newest workouts displayed first.
+- Monthly logged-time summary.
+- Completed-session count.
+- Monthly goal pacing.
+- Dynamic activity-type filters.
+- Workout rating and notes preview.
+- Empty-state handling when no workouts are available.
 
-- Kotlin
-- Android Views / XML layouts (no Jetpack Compose)
-- AndroidX AppCompat & Material Components (Chip, BottomNavigationView, SwitchMaterial)
-- View Binding
-- RecyclerView
-- Activity Result API / Intents
-- SensorManager (TYPE_ACCELEROMETER, TYPE_GYROSCOPE)
-- SharedPreferences + org.json for local persistence
-- `java.time` for week/month/streak date math (native on API 26+, no desugaring needed)
-- Canvas, Paint, Path, Shader (custom views)
+### 📱 Motion Sensors
+- Live **accelerometer X/Y/Z** readings.
+- Live **gyroscope X/Y/Z** readings.
+- Sensor sample-rate calculation in Hz.
+- Movement magnitude displayed in `g`.
+- Idle and peak movement tracking.
+- Per-axis intensity bars.
+- Pause/resume sensor streaming.
+- Sensor recalibration.
+- Graceful handling when a device does not provide a requested sensor.
 
-## Activities
+### 📈 Custom Visualizations
+- Custom real-time movement graph built with `Canvas`, `Paint`, and `Path`.
+- Custom radial gauge built with `Canvas`, `Paint`, and `LinearGradient`.
+- No third-party charting library is required for the custom motion graph.
 
-### MainActivity
-The app's dashboard and entry point. It computes and displays: a live streak subtitle, a weekly-goal `GaugeArcView` with real progress/percentage/remaining-minutes text, a Monday–Sunday streak strip, week-over-week performance deltas, the most recent workout, and live sensor availability — all derived from `WorkoutRepository`. It launches `WorkoutActivity` via the Activity Result API, passing a default workout type through the `Intent`. When a workout is returned, it is saved through `WorkoutRepository` and the dashboard is refreshed. It also hosts the shared bottom navigation bar.
+## Technology Stack
 
-### WorkoutActivity
-Used to create a new workout. It reads the default workout type sent by the launching Activity and pre-selects the matching `Chip` in a horizontally scrollable `ChipGroup`. The user sets duration via a +/- stepper (with quick presets and a gradient progress bar), a 5-level RPE intensity scale (a segmented bar, mapped to the 1–5 `rating` field), a completed `SwitchMaterial`, and optional notes with a live char counter. On save, the completed workout data (type, duration, rating, completed flag, notes, timestamp) is returned to the calling Activity as an activity result.
-
-### HistoryActivity
-Displays every saved workout in a `RecyclerView` backed by `WorkoutAdapter` and a custom `RecyclerView.ViewHolder`, plus a monthly summary card (logged time, completed sessions, goal pacing) and dynamic filter chips built from the workout types actually present in the data. Workouts are sorted newest-first. An empty-state view is shown instead of the list when there are no saved workouts, and the screen does not crash with zero items.
-
-### SensorActivity
-Registers listeners for `Sensor.TYPE_ACCELEROMETER` and `Sensor.TYPE_GYROSCOPE` using `SensorManager`, following the `onResume()`/`onPause()` lifecycle so listeners are always cleanly registered and unregistered (plus a manual Pause/Resume Stream toggle on top of that). It displays a live-computed sample rate (Hz), a movement-magnitude `GaugeArcView` (in g, with idle/peak tracking and a Recalibrate action), live X/Y/Z values with per-axis bars for both sensors, and feeds the accelerometer magnitude into `MovementGraphView`. If a sensor is unavailable on the device, a fallback message is shown instead of crashing.
-
-### MovementGraphView (Custom View — required)
-A hand-rolled `View` subclass that overrides `onDraw()` and draws a live line/area chart using `Canvas`, `Paint`, and `Path` — no charting library is used. It keeps a bounded buffer of the most recent readings (older values are dropped once the limit is reached) and calls `invalidate()` whenever a new value arrives so the graph redraws in real time.
-
-### GaugeArcView (Custom View — additional)
-A second `View` subclass used for the dashboard's weekly-goal ring and the sensor screen's magnitude dial. Draws a background track and a gradient progress arc with `Canvas`/`Paint`/`LinearGradient`, plus a glowing indicator dot via `Paint.setShadowLayer`.
-
-## University Requirements Implemented
-
-| Requirement | Implementation |
+| Technology | Usage |
 |---|---|
-| Native Android app in Kotlin | Entire app written in Kotlin, no Compose, traditional Views/XML |
-| API 34+ support | `compileSdk`/`targetSdk` = 34, `minSdk` = 26 |
-| At least 3 Activities | 4 Activities: `MainActivity`, `WorkoutActivity`, `HistoryActivity`, `SensorActivity` |
-| Transfer data between Activities | Default workout type sent to `WorkoutActivity` via `Intent` extras |
-| Return data to the previous Activity | `WorkoutActivity` returns the completed workout via the Activity Result API |
-| RecyclerView | `HistoryActivity` uses a `RecyclerView` + `WorkoutAdapter` + `WorkoutViewHolder` |
-| CustomView | `MovementGraphView` (required) and `GaugeArcView` (additional), both extend `View` and override `onDraw()` |
-| Accelerometer | `SensorActivity` registers and reads `Sensor.TYPE_ACCELEROMETER` |
-| Gyroscope | `SensorActivity` registers and reads `Sensor.TYPE_GYROSCOPE` |
-| Local persistence | `WorkoutRepository` stores workouts as JSON in `SharedPreferences`; data survives app restarts |
+| **Kotlin** | Application development |
+| **Android Views / XML** | Native UI implementation |
+| **AndroidX AppCompat** | Activity and compatibility support |
+| **Material Components** | Chips, switches, buttons and Material UI components |
+| **View Binding** | Type-safe view access |
+| **RecyclerView** | Workout history list |
+| **Activity Result API** | Passing workout data between activities |
+| **SensorManager** | Accelerometer and gyroscope access |
+| **SharedPreferences + JSON** | Local workout persistence |
+| **Canvas / Paint / Path / Shader** | Custom graphs and gauges |
+| **java.time** | Date, week, month and streak calculations |
+| **Gradle Kotlin DSL** | Android build configuration |
 
-## How to Run
+## Application Architecture
 
-1. Open Android Studio and choose **Open**, then select the `SmartFit` project folder.
-2. Let Gradle sync complete (the project uses its own Gradle wrapper, so no manual Gradle install is required).
-3. Select an Android emulator or physical device running Android 8.0 (API 26) or later.
-4. Click **Run ▶** to build and launch the app.
+SmartFit uses a lightweight local architecture centered around Android Activities, reusable views, models, adapters, and a local repository.
 
-Alternatively, from the command line:
+```text
+SmartFit
+│
+├── MainActivity
+│   └── Dashboard
+│
+├── WorkoutActivity
+│   └── Workout creation
+│
+├── HistoryActivity
+│   └── RecyclerView + workout filtering
+│
+├── SensorActivity
+│   └── Accelerometer + Gyroscope
+│       ├── MovementGraphView
+│       └── GaugeArcView
+│
+├── model/
+│   └── Workout
+│
+├── adapter/
+│   └── WorkoutAdapter
+│
+├── storage/
+│   ├── WorkoutRepository
+│   └── WorkoutStats
+│
+└── res/
+    ├── layout/
+    ├── drawable/
+    ├── color/
+    ├── values/
+    ├── font/
+    └── menu/
+```
+
+## Local Data Storage
+
+Workout records are stored locally using:
+
+```text
+SharedPreferences
+        ↓
+JSON array
+        ↓
+WorkoutRepository
+        ↓
+Dashboard / History
+```
+
+This keeps the core app simple and allows saved workouts to remain available after restarting the application.
+
+## Android Compatibility
+
+- **Minimum SDK:** 26 — Android 8.0 (Oreo)
+- **Target SDK:** 34
+- **Compile SDK:** 34
+- **JVM target:** Java 17
+- **Sensors:** Accelerometer and gyroscope are treated as optional device features.
+
+The project includes the Gradle wrapper, so a separate Gradle installation is not required.
+
+## Screenshots
+
+### Dashboard
+
+<p align="center">
+  <img src="screenshots/smartfit-dashboard.png" width="300" alt="SmartFit dashboard">
+</p>
+
+### Dashboard — Weekly Performance
+
+<p align="center">
+  <img src="screenshots/smartfit-dashboard-performance.png" width="300" alt="SmartFit weekly performance dashboard">
+</p>
+
+### Add Workout
+
+<p align="center">
+  <img src="screenshots/smartfit-workout.png" width="300" alt="SmartFit workout logging screen">
+</p>
+
+### Workout Notes & Save
+
+<p align="center">
+  <img src="screenshots/smartfit-workout-notes.png" width="300" alt="SmartFit workout notes and save screen">
+</p>
+
+### Workout History
+
+<p align="center">
+  <img src="screenshots/smartfit-history.png" width="300" alt="SmartFit workout history">
+</p>
+
+## Getting Started
+
+### Prerequisites
+
+- Android Studio
+- JDK 17
+- Android SDK Platform 34
+- An Android emulator or physical Android device
+- Android 8.0 / API 26 or newer
+
+### Run in Android Studio
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/jenish-28/SmartFit.git
+```
+
+2. Open the `SmartFit` folder in Android Studio.
+3. Allow Gradle to sync and finish downloading dependencies.
+4. Start an Android emulator or connect a physical Android device.
+5. Select the `app` run configuration.
+6. Click **Run ▶**.
+
+### Build from the command line
+
+On macOS/Linux:
 
 ```bash
 ./gradlew clean assembleDebug
 ```
 
-The debug APK is produced at `app/build/outputs/apk/debug/app-debug.apk`.
+On Windows:
+
+```bat
+gradlew.bat clean assembleDebug
+```
+
+The generated debug APK will be available at:
+
+```text
+app/build/outputs/apk/debug/app-debug.apk
+```
 
 ## Project Structure
 
 ```text
-app/src/main/
-├── java/com/example/smartfit/
-│   ├── MainActivity.kt        # Dashboard
-│   ├── WorkoutActivity.kt     # Add workout + return result
-│   ├── HistoryActivity.kt     # RecyclerView workout history
-│   ├── SensorActivity.kt      # Accelerometer + gyroscope + custom views
-│   ├── NavUtils.kt            # Shared bottom-navigation wiring
-│   ├── model/Workout.kt, WorkoutTypeIcons.kt
-│   ├── adapter/WorkoutAdapter.kt
-│   ├── storage/WorkoutRepository.kt   # SharedPreferences + JSON persistence
-│   │   └── WorkoutStats.kt            # Streak/week/month date-math helpers
-│   └── view/MovementGraphView.kt, GaugeArcView.kt
-└── res/
-    ├── layout/     # activity_main, activity_workout, activity_history, activity_sensor, item_workout, ...
-    ├── values/     # colors.xml, strings.xml, themes.xml, dimens.xml
-    ├── color/      # chip/switch/input/nav ColorStateLists
-    ├── font/       # Outfit + Space Grotesk static instances
-    ├── drawable/   # card/pill/badge shapes, launcher icon, Material Symbols icons
-    └── menu/       # bottom_nav_menu.xml
+app/
+└── src/
+    └── main/
+        ├── java/com/example/smartfit/
+        │   ├── MainActivity.kt
+        │   ├── WorkoutActivity.kt
+        │   ├── HistoryActivity.kt
+        │   ├── SensorActivity.kt
+        │   ├── NavUtils.kt
+        │   ├── model/
+        │   ├── adapter/
+        │   ├── storage/
+        │   └── view/
+        │
+        └── res/
+            ├── layout/
+            ├── drawable/
+            ├── color/
+            ├── values/
+            ├── font/
+            └── menu/
 ```
 
+## Design Highlights
+
+- Dark, high-contrast fitness interface.
+- Lime primary accent with supporting cyan highlights.
+- Reusable card, pill, badge, chip, switch, and navigation components.
+- Outfit and Space Grotesk typography.
+- Custom launcher icon and brand mark.
+- Responsive XML layouts for the application screens.
+
+## Core Android Concepts Demonstrated
+
+- Multiple Android Activities.
+- Intent extras and Activity Result API.
+- Activity lifecycle management.
+- RecyclerView and custom ViewHolder.
+- Runtime sensor availability checks.
+- Sensor lifecycle registration/unregistration.
+- SharedPreferences-based local persistence.
+- JSON serialization/deserialization.
+- Custom `View` drawing.
+- Canvas-based real-time visualization.
+- View Binding.
+- Material Components.
+- Gradle Kotlin DSL.
+
+## Repository
+
+**GitHub:** https://github.com/jenish-28/SmartFit
+
+## Author
+
+**Jenish Patel**
+
+GitHub: https://github.com/jenish-28
+
+---
+
+> SmartFit is a native Android application focused on practical workout tracking, local data persistence, and real-time motion sensing.
