@@ -155,32 +155,41 @@ The project includes the Gradle wrapper, so a separate Gradle installation is no
 ### Dashboard
 
 <p align="center">
-  <img src="screenshots/smartfit-dashboard.png" width="300" alt="SmartFit dashboard">
+  <img src="screenshots/Dashboard.png" width="300" alt="SmartFit Dashboard">
+  
 </p>
 
 ### Dashboard — Weekly Performance
 
 <p align="center">
-  <img src="screenshots/smartfit-dashboard-performance.png" width="300" alt="SmartFit weekly performance dashboard">
+  <img src="screenshots/Dashboard_under.png" width="300" alt="SmartFit Dashboard">
 </p>
 
 ### Add Workout
 
 <p align="center">
-  <img src="screenshots/smartfit-workout.png" width="300" alt="SmartFit workout logging screen">
+  <img src="screenshots/Workout.png" width="300" alt="SmartFit workout logging screen">
 </p>
 
 ### Workout Notes & Save
 
 <p align="center">
-  <img src="screenshots/smartfit-workout-notes.png" width="300" alt="SmartFit workout notes and save screen">
+  <img src="screenshots/Workout_under.png" width="300" alt="SmartFit workout notes and save screen">
 </p>
 
 ### Workout History
 
 <p align="center">
-  <img src="screenshots/smartfit-history.png" width="300" alt="SmartFit workout history">
+  <img src="screenshots/History.png" width="300" alt="SmartFit workout history">
 </p>
+
+### Sensors
+
+<p align="center">
+  <img src="screenshots/Sensors.png" width="300" alt="SmartFit sensors">
+  <img src="screenshots/Sensors_under.png" width="300" alt="SmartFit sensors">
+</p>
+
 
 ## Getting Started
 
